@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -47,8 +48,14 @@ public class MainActivity extends AppCompatActivity {
         if (isValid()) {
         }
         String nama = etNama.getText().toString();
+
         String hasil = null;
 
+        if (rgUkuran.getCheckedRadioButtonId() != -1) {
+            RadioButton radioButton = (RadioButton)
+                    findViewById(rgUkuran.getCheckedRadioButtonId());
+            hasil = radioButton.getText().toString();
+        }
 
         if (hasil == null) {
             tvHasil.setText("Belum Mengisi Ukuran");
@@ -56,8 +63,16 @@ public class MainActivity extends AppCompatActivity {
             tvHasil.setText("Kaos Anda Ukuran :" + hasil);
         }
 
+        String jenis = "Jenis Kaos yang anda pilih adalah : \n";
+        int starlen = hasil.length();
+        if (cbKj.isChecked()) jenis += cbKj.getText() + "\n";
+        if (cbKs.isChecked()) jenis += cbKs.getText() + "\n";
+        if (cbKp.isChecked()) jenis += cbKp.getText() + "\n";
+        if (cbKo.isChecked()) jenis += cbKo.getText() + "\n";
+        if (cbKpolo.isChecked()) jenis += cbKpolo.getText() + "\n";
 
-        tvHasil.setText("Nama : " + nama + "\n Negara :" + spNegara.getSelectedItem().toString() + "\n Ukuran Kaos :" + hasil);
+        if (hasil.length() == starlen) jenis += "Jenis Kaos belum dipilih ";
+        tvHasil.setText("Nama : " + nama + "\n Negara :" + spNegara.getSelectedItem().toString() + "\n Ukuran Kaos :" + hasil + "\n" + jenis);
 
     }
 
